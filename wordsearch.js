@@ -1,26 +1,32 @@
 const wordSearch = (letters, word) => { 
-    const horizontalJoin = letters.map(ls => ls.join(''))
-    for (l of horizontalJoin) {
-      if (l.includes(word)) {
-        return true
-      }
-      for (col of horizontalJoin[0]) {
-        if(col.includes(word))
-          return true
-      }
+  const horizontalJoin = letters.map(ls => ls.join(''));
+  for (l of horizontalJoin) {
+    if (l.includes(word)) {
+      return true;
     }
-    const backwards = word.split('').reverse().join('')
-    for (l of horizontalJoin) {
-      if(l.includes(backwards)) {
-        return true
-      }
-      for (col of horizontalJoin[0]) {
-        if(col.includes(backwards)){
-          return true;
-        }
-      }
+  }
+  const vertical = []; // transposed the letters
+  for (let row of letters[0]) {
+    vertical.push([]);
+  }
+  for (let row in letters) {
+    for (let col in letters[0]) {
+      vertical[col].push(letters[row][col]);
     }
-    return false;
+  }
+  const verticalJoin = vertical.map(ls => ls.join('')); // copied the horizontal join but vertical
+  for (l of verticalJoin) {
+    if (l.includes(word)) {
+      return true;
+    }
+  }
+  const backwards = word.split('').reverse().join('');
+  for (l of horizontalJoin) {
+    if(l.includes(backwards)) {
+      return true
+    }
+  }
+  return false;
 }
 
 
